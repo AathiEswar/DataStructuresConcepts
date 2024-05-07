@@ -217,6 +217,22 @@ class TreeCustom {
             System.out.println();
         }
     }
+
+    public int maxDepth(TreeNode root){
+        if(root == null) return 0;
+
+        return 1+ Math.max(maxDepth(root.leftChild) , maxDepth(root.rightChild));
+    }
+
+    public int minDepth(TreeNode root){
+        if(root == null) return 0;
+        if(root.leftChild == null && root.rightChild == null) return 1;
+        if(root.leftChild == null) return 1+minDepth(root.rightChild);
+        if(root.rightChild == null) return 1+minDepth(root.leftChild);
+
+        return 1+Math.min(minDepth(root.leftChild) , minDepth(root.rightChild));
+
+    }
 }
 
 final class TestTheCustomTree {
@@ -261,7 +277,11 @@ final class TestTheCustomTree {
         System.out.println("Bfs :");
         tree.BFSTree(tree.root);
 
+        System.out.println("MAX depth :");
+        System.out.println(tree.maxDepth(tree.root));
 
+        System.out.println("MIN depth :");
+        System.out.println(tree.minDepth(tree.root));
     }
 }
 
