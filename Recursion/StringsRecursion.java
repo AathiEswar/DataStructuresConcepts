@@ -1,5 +1,8 @@
 package Concepts.Recursion;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class StringsRecursion {
     public static void main(String[] args) {
         String s = "aathi";
@@ -7,7 +10,84 @@ public class StringsRecursion {
         //System.out.println(removeChar(s , 'a'));
         //System.out.println(skipString("Aathi Eswar S" , "Aathi"));
 
-        permutationOfStringWithExtraString("abc" , " ");
+        //permutationOfStringWithExtraString("abc" , " ");
+        //System.out.println(permutationOfStringInList("abc" , "" , new ArrayList<String>()));
+
+        //System.out.println(permutationOfStringReturnList("abc" , ""));
+
+        //StringSubsetIteration(new int[]{1,2,3 ,3});
+
+        StringSubsetIterationDuplicats(new int[]{1,2,3,3});
+    }
+    public static void StringSubsetIterationDuplicats(int[] arr){
+        List<List<Integer>> result = new ArrayList<>();
+
+        result.add(new ArrayList<>());
+        int start = 0;
+        int end = 0;
+
+        for(int i = 0 ;i < arr.length;i++){
+            int innerSize = result.size();
+            start = 0;
+            if(i>0 && arr[i] == arr[i-1]){
+                start = end+1;
+            }
+            end = result.size()-1;
+            for(int j = start;j<innerSize;j++){
+                List<Integer> inner  = new ArrayList<>(result.get(j));
+                inner.add(arr[i]);
+                result.add(inner);
+            }
+        }
+
+        System.out.println(result);
+    }
+
+        public static void StringSubsetIteration(int[] arr){
+        List<List<Integer>> result = new ArrayList<>();
+
+        result.add(new ArrayList<>());
+
+        for(int num : arr){
+            int innerSize = result.size();
+
+            for(int i = 0;i<innerSize;i++){
+                List<Integer> inner  = new ArrayList<>(result.get(i));
+                inner.add(num);
+                result.add(inner);
+            }
+        }
+
+        System.out.println(result);
+    }
+
+
+
+    public static ArrayList permutationOfStringReturnList(String s , String p){
+        if(s.isEmpty()){
+            ArrayList<String> result = new ArrayList<>();
+            result.add(p);
+            return result;
+        }
+
+        ArrayList<String> left = permutationOfStringReturnList(s.substring(1) , p);
+        ArrayList<String> right = permutationOfStringReturnList(s.substring(1) , s.charAt(0) + p);
+
+        left.addAll(right);
+
+        return left;
+    }
+
+    public static ArrayList permutationOfStringInList(String s , String p, ArrayList<String> result) {
+        if(s.isEmpty()){
+            result.add(p);
+            return result;
+        }
+
+        permutationOfStringInList(s.substring(1) , p , result);
+        return permutationOfStringInList(s.substring(1) , s.charAt(0) + p , result);
+
+
     }
 
     public static void permutationOfStringWithExtraString(String s , String p) {
