@@ -8,8 +8,8 @@ public class Permutation {
 
        // System.out.println(permutationStringArrayExtra("abc" , "" , new ArrayList<>()));
 
-       // System.out.println(permutationStringArrayOn("abc" ,""));
-        System.out.println(permutationCountNoExtra("" , "abc"));
+        System.out.println(permutationStringArrayOn("abc" ,""));
+       // System.out.println(permutationCountNoExtra("" , "abc"));
     }
     public static int permutationCountNoExtra(String p , String up){
         if(up.isEmpty()){
