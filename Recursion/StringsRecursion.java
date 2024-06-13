@@ -13,11 +13,11 @@ public class StringsRecursion {
         //permutationOfStringWithExtraString("abc" , " ");
         //System.out.println(permutationOfStringInList("abc" , "" , new ArrayList<String>()));
 
-        //System.out.println(permutationOfStringReturnList("abc" , ""));
+        System.out.println(permutationOfStringReturnList("abc" , ""));
 
         //StringSubsetIteration(new int[]{1,2,3 ,3});
 
-        StringSubsetIterationDuplicats(new int[]{1,2,3,3});
+        //StringSubsetIterationDuplicats(new int[]{1,2,3,3});
     }
     public static void StringSubsetIterationDuplicats(int[] arr){
         List<List<Integer>> result = new ArrayList<>();
