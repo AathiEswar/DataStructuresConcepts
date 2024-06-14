@@ -7,6 +7,17 @@ public class Problems {
 
     }
 
+    public static int lengthOfLinedList(ListNode head){
+        ListNode temp = head;
+        int count = 0;
+        while(temp != null){
+            count++;
+            temp = temp.next;
+        }
+
+        return count;
+    }
+
     public static boolean cycleLinkedList(ListNode head){
         // hare and tortoise algorithm to find cycles
         ListNode fast = head;
