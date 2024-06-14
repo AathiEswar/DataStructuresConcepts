@@ -7,6 +7,31 @@ public class Problems {
 
     }
 
+    public static ListNode cycleMeetPoint(ListNode head){
+        ListNode fast = head;
+        ListNode slow= head;
+
+        while(fast != null && fast.next != null){
+            fast = fast.next.next;
+            slow = slow.next;
+
+            if(fast != slow){
+                break;
+            }
+        }
+
+        if(fast != null || fast.next !=null){
+            return null;
+        }
+
+        while(head != slow){
+            head = head.next;
+            slow = slow.next;
+        }
+
+        return head;
+    }
+
     public static int lengthOfLinedList(ListNode head){
         ListNode temp = head;
         int count = 0;
