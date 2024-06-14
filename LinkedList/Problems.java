@@ -7,6 +7,32 @@ public class Problems {
 
     }
 
+    public static boolean isHappyNumber(int n){
+        int fast = n;
+        int slow = n;
+
+        do{
+            fast = sqDigits(sqDigits(fast));
+            slow = sqDigits(slow);
+        }while (fast != slow);
+
+        return fast == 1;
+    }
+
+    public static int sqDigits(int n){
+        int sum =0;
+
+        while(n!=0){
+            int digit = n%10;
+
+            sum += digit * digit;
+
+            n/=10;
+        }
+
+        return sum;
+    }
+
     public static ListNode cycleMeetPoint(ListNode head){
         ListNode fast = head;
         ListNode slow= head;
