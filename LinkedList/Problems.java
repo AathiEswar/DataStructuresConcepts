@@ -7,6 +7,67 @@ public class Problems {
 
     }
 
+    public ListNode rotateList2(ListNode head , int k){
+        if(head == null || head.next == null){
+            return head;
+        }
+        // find the length of linkedlist
+
+        ListNode cur = head;
+        ListNode tail = head;
+        int size = 0;
+        while(cur != null){
+            size++;
+            tail = cur;
+            cur = cur.next;
+        }
+
+        k = k % size;
+        if(k == 0) return head ;
+        int rotateNeed = size - k;
+        cur = head;
+
+        while(rotateNeed > 1){
+            rotateNeed--;
+            cur = cur.next;
+        }
+
+        ListNode newHead = cur.next;
+        cur.next = null;
+        tail.next = head;
+
+        return newHead;
+
+    }
+    public ListNode rotateList1(ListNode head , int k){
+        if(head == null || head.next == null ) return head;
+
+        int length = 0;
+        ListNode temp = head;
+        while(temp != null){
+            length++;
+            temp = temp.next;
+        }
+
+        int rotateNeeded = k % length;
+
+        while(rotateNeeded!=0){
+
+            ListNode prev = null;
+            ListNode cur = head;
+
+            while(cur!= null && cur.next != null){
+                prev = cur;
+                cur = cur.next;
+            }
+            cur.next = head;
+            prev.next = null;
+            head = cur;
+            rotateNeeded--;
+        }
+        return head;
+    }
+
     public static void reorderLinkedList(ListNode head){
 
         // find the middle element using hare and tortoise algo
