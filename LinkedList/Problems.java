@@ -6,6 +6,43 @@ public class Problems {
     public static void main(String[] args) {
 
     }
+    public static ListNode reverseLinkedList2(ListNode head , int start , int end){
+        if(head == null || head.next == null) return head;
+
+        ListNode dummy = new ListNode(0);
+
+        dummy.next = head;
+
+        ListNode prev = null;
+        ListNode cur = dummy;
+
+        for(int i=0;i<start;i++){
+            prev = cur;
+            cur = cur.next;
+        }
+
+        for(int i = 0 ; i < end - start ; i++){
+            ListNode nextNode  = cur.next;
+            cur.next = nextNode.next;
+            nextNode.next = prev.next;
+            prev.next = nextNode;
+        }
+
+        return dummy.next;
+
+
+    }
+
+    public static ListNode reverseLinkedListRecursion(ListNode head){
+        if(head == null || head.next == null) return head;
+
+        ListNode newhead = reverseLinkedListRecursion(head.next);
+
+        head.next.next = head;
+        head.next = null;
+
+        return newhead;
+    }
     public static ListNode reverseLinkedList(ListNode head){
         if(head == null || head.next == null){
             return head;
