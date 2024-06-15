@@ -8,11 +8,12 @@ public class Problems {
     }
 
     public ListNode rotateList2(ListNode head , int k){
+        // check edge cases
         if(head == null || head.next == null){
             return head;
         }
-        // find the length of linkedlist
 
+        // find the length of linkedlist
         ListNode cur = head;
         ListNode tail = head;
         int size = 0;
@@ -22,20 +23,31 @@ public class Problems {
             cur = cur.next;
         }
 
+        // use modulo algorithm to remove excess rotation needed
         k = k % size;
         if(k == 0) return head ;
+
+        // find the length needed to iterate to reach the new tail
         int rotateNeed = size - k;
         cur = head;
 
+        // reaching the new tail
         while(rotateNeed > 1){
             rotateNeed--;
             cur = cur.next;
         }
 
+        // next of new tail will the new head
         ListNode newHead = cur.next;
+
+        // break the link of the tail
         cur.next = null;
+
+        // old tail will point to the old head
         tail.next = head;
 
+
+        // return the new head
         return newHead;
 
     }
