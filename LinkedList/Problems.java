@@ -6,6 +6,46 @@ public class Problems {
     public static void main(String[] args) {
 
     }
+    public static boolean isPalindrome(ListNode head){
+        ListNode fast = head;
+        ListNode slow = head;
+
+        //find mid
+        while(fast != null && fast.next != null){
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+
+        // slow is the middle element
+        ListNode cur = slow;
+        ListNode prev = null;
+
+
+        // reverse list from the middle
+        while(cur != null){
+            ListNode nextNode = cur.next;
+            cur.next = prev;
+            prev = cur;
+            cur = nextNode;
+        }
+
+
+        // iterate and check from left and right part of list
+        ListNode right = prev;
+        ListNode left = head;
+
+        // iterate from right because the right might be larger if the total elements are odd
+        while(right != null){
+            if(right.val != left.val){
+                return false;
+            }
+
+            right = right.next;
+            left = left.next;
+        }
+
+        return true;
+    }
     public static ListNode reverseLinkedList2(ListNode head , int start , int end){
         if(head == null || head.next == null) return head;
 
