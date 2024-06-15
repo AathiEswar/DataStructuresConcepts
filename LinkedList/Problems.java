@@ -6,6 +6,23 @@ public class Problems {
     public static void main(String[] args) {
 
     }
+    public static ListNode reverseLinkedList(ListNode head){
+        if(head == null || head.next == null){
+            return head;
+        }
+
+        ListNode cur = head;
+        ListNode prev = null;
+
+        while (cur != null){
+            ListNode next = cur.next;
+            cur.next = prev;
+            prev = cur;
+            cur = next;
+        }
+
+        return prev;
+    }
     public static ListNode middleOfLinkedList(ListNode head){
         ListNode fast = head;
         ListNode slow= head;
