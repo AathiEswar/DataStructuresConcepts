@@ -6,6 +6,50 @@ public class Problems {
     public static void main(String[] args) {
 
     }
+
+    public static void reorderLinkedList(ListNode head){
+
+        // find the middle element using hare and tortoise algo
+
+        ListNode fast  = head;
+        ListNode slow = head;
+
+        while(fast != null && fast.next != null){
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+
+        // slow is the middle element
+        // reverse the other half of the linked list
+        ListNode cur = slow;
+        ListNode prev = null;
+
+        while(cur != null){
+            ListNode nextNode = cur.next;
+            cur.next = prev;
+            prev = cur;
+            cur = nextNode;
+        }
+
+        // prev has the start of the reversed list
+
+        // iterate and add the nodes
+
+        ListNode left = head;
+        ListNode right = prev;
+
+        // right will be the last element so rightmust exits but the next element doesnt need to
+        while(right.next != null){
+            ListNode temp = left.next;
+            left.next = right;
+            left = temp;
+
+            temp = right.next;
+            right.next = left;
+            right = temp;
+        }
+    }
+
     public static boolean isPalindrome(ListNode head){
         ListNode fast = head;
         ListNode slow = head;
@@ -35,6 +79,7 @@ public class Problems {
         ListNode left = head;
 
         // iterate from right because the right might be larger if the total elements are odd
+        // and the left might point to start of the reversed list 
         while(right != null){
             if(right.val != left.val){
                 return false;
@@ -47,20 +92,27 @@ public class Problems {
         return true;
     }
     public static ListNode reverseLinkedList2(ListNode head , int start , int end){
+        // check if no elements or only one element present
         if(head == null || head.next == null) return head;
 
+        // to keep track of the start
         ListNode dummy = new ListNode(0);
 
         dummy.next = head;
 
+        //to have track of the start and prev of the reverse part
         ListNode prev = null;
         ListNode cur = dummy;
 
+        // iterate till the start
         for(int i=0;i<start;i++){
             prev = cur;
             cur = cur.next;
         }
 
+        // prev is the normal and cur is the start of reverse lit
+
+        // reverse the list till end
         for(int i = 0 ; i < end - start ; i++){
             ListNode nextNode  = cur.next;
             cur.next = nextNode.next;
@@ -68,6 +120,8 @@ public class Problems {
             prev.next = nextNode;
         }
 
+
+        // return the start
         return dummy.next;
 
 
@@ -76,8 +130,10 @@ public class Problems {
     public static ListNode reverseLinkedListRecursion(ListNode head){
         if(head == null || head.next == null) return head;
 
+        // has the till done reverse list
         ListNode newhead = reverseLinkedListRecursion(head.next);
 
+        // change the pointers only through the head
         head.next.next = head;
         head.next = null;
 
