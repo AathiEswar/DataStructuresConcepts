@@ -1,4 +1,4 @@
-package Concepts;
+package Concepts.Others;
 
 class Parent {
     protected String name;

@@ -1,4 +1,4 @@
-package Concepts;
+package Concepts.Others;
 
 class RectangleCustom{
     protected int x;

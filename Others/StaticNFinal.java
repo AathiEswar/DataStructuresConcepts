@@ -1,4 +1,4 @@
-package Concepts;
+package Concepts.Others;
 
 class ParSF{
     final String name = "Aathi";

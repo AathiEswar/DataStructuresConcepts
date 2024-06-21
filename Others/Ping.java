@@ -1,4 +1,4 @@
-package Concepts;
+package Concepts.Others;
 import java.io.*;
 class Ping
 {

@@ -1,4 +1,4 @@
-package Concepts;
+package Concepts.Others;
 
 final class A{
     public void printArr(int[] arr){

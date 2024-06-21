@@ -1,4 +1,4 @@
-package Concepts;
+package Concepts.Others;
 
 import java.util.Arrays;
 import java.util.Collections;

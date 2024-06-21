@@ -1,4 +1,4 @@
-package Concepts;
+package Concepts.Others;
 
 class Class1{
     public abstract class Class11{
