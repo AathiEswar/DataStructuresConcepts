@@ -11,26 +11,26 @@ import java.util.ArrayList;
     }
 
     // swap for insert and delete the node
-    public void swap(int first , int second){
+    private void swap(int first , int second){
         T temp = list.get(first);
         list.set(first , list.get(second));
         list.set(second , temp);
     }
 
     // find parent i/2 of that child
-    public int findParent(int index){
+    private int findParent(int index){
         return (index-1)/2;
     }
 
 
     // find left child
-    public int findLeftChild(int index){
+    private int findLeftChild(int index){
         return index*2 + 1;
     }
 
 
     // find right child
-    public int findRightChild(int index){
+    private int findRightChild(int index){
         return index*2 + 2;
     }
 
@@ -47,7 +47,7 @@ import java.util.ArrayList;
         upheap(list.size()-1);
     }
 
-    public void upheap(int index) {
+    private void upheap(int index) {
         // if the element is the root then return
         if(index == 0)return;
 
@@ -93,7 +93,7 @@ import java.util.ArrayList;
 
     }
 
-    public void downheap(int val) {
+    private void downheap(int val) {
         // get min , left and right indexes
         int min = val ;
         int left = findLeftChild(min);
