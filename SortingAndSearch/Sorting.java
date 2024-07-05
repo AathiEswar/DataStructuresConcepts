@@ -1,4 +1,4 @@
-package Concepts.Sorting;
+package Concepts.SortingAndSearch;
 
 import java.util.Arrays;
 

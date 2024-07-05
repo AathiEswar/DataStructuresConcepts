@@ -1,4 +1,4 @@
-package Concepts.Sorting;
+package Concepts.SortingAndSearch;
 
 import java.util.Arrays;
 
@@ -53,7 +53,6 @@ public class MergeSort {
 
         for (int l = 0; l < mergeArray.length; l++) {
             arr[l+start] = mergeArray[l];
-            
         }
     }
 

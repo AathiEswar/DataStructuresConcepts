@@ -8,8 +8,8 @@ import java.util.Queue;
 
 class TreeNode {
     int data;
-    TreeNode leftChild;
-    TreeNode rightChild;
+    TreeNode left;
+    TreeNode right;
 }
 
 class TreeCustom {
@@ -23,11 +23,11 @@ class TreeCustom {
         while (cur.data != key) {
             //if lesser than cur then move to left child
             if (cur.data > key) {
-                cur = cur.leftChild;
+                cur = cur.left;
             }
             //if greater than cur then move to rightchild
             else {
-                cur = cur.rightChild;
+                cur = cur.right;
             }
             //if not found will reach the end ie null
             if (cur == null) return null;
@@ -38,9 +38,9 @@ class TreeCustom {
 
     public void InfixTraversal(TreeNode node) {
         if (node != null) {
-            InfixTraversal(node.leftChild);
+            InfixTraversal(node.left);
             System.out.print(node.data + " ");
-            InfixTraversal(node.rightChild);
+            InfixTraversal(node.right);
         }
 
     }
@@ -48,118 +48,84 @@ class TreeCustom {
     public void PrefixTraversal(TreeNode node) {
         if (node != null) {
             System.out.print(node.data + " ");
-            InfixTraversal(node.leftChild);
-            InfixTraversal(node.rightChild);
+            InfixTraversal(node.left);
+            InfixTraversal(node.right);
         }
     }
 
     public void PostfixTraversal(TreeNode node) {
         if (node != null) {
-            InfixTraversal(node.leftChild);
-            InfixTraversal(node.rightChild);
+            InfixTraversal(node.left);
+            InfixTraversal(node.right);
             System.out.println(node.data + " ");
         }
 
     }
 
-    public void insert(int data) {
+    public TreeNode insert(TreeNode root, int data ) {
 
-        TreeNode newNode = new TreeNode();
-        newNode.data = data;
-
-        if (root == null) {
-            root = newNode;
-            return;
+        if(root == null){
+            TreeNode newNode = new TreeNode();
+            newNode.data = data;
+            return newNode;
         }
 
-        TreeNode cur = root;
-        TreeNode parent;
-        while (true) {
-            parent = cur;
-            if (data < cur.data) {
-                cur = cur.leftChild;
-                if (cur == null) {
-                    parent.leftChild = newNode;
-                    return;
-                }
-            } else {
-                cur = cur.rightChild;
-                if (cur == null) {
-                    parent.rightChild = newNode;
-                    return;
-                }
-            }
+        if(root.data < data){
+            root.right = insert(root.right , data);
         }
+        if(root.data > data){
+            root.left = insert(root.left , data);
+        }
+
+        return root;
 
     }
 
-    public void delete(int key) {
-        TreeNode cur = root;
-        TreeNode parent = root;
-
-        while (cur.data != key) {
-            parent = cur;
-
-            if (key < cur.data) {
-                cur = cur.leftChild;
-            } else {
-                cur = cur.rightChild;
-            }
-            if (cur == null) return;
-
+    public TreeNode delete(int key , TreeNode root) {
+        //if null return null
+        if(root == null){
+            return null;
         }
-        if (cur.leftChild == null && cur.rightChild == null) {
-            if (cur == root) {
-                root = null;
-            } else if (parent.leftChild == cur) {
-                parent.leftChild = null;
-            } else {
-                parent.rightChild = null;
-            }
-        } else if (cur.rightChild == null) {
-            if (cur == root) {
-                root = cur.leftChild;
+        // find the node
 
-            } else if (parent.leftChild == cur) {
-                parent.leftChild = cur.leftChild;
-            } else {
-                parent.rightChild = cur.leftChild;
+        if(root.data < key){
+            root.right = delete(key , root.right);
+        }
+        else if(root.data > key){
+            root.left = delete(key , root.right);
+        }
+        // if found
+        else{
+            // left node
+            if(root.left == null && root.right == null){
+                return null;
             }
-        } else if (cur.leftChild == null) {
-            if (cur == root) {
-                root = cur.rightChild;
 
-            } else if (parent.leftChild == cur) {
-                parent.leftChild = cur.rightChild;
-            } else {
-                parent.rightChild = cur.rightChild;
+            // node with one child
+            if(root.left == null){
+                return  root.right;
             }
-        } else {
-            TreeNode succParent = cur;
-            TreeNode succ = cur;
-            TreeNode temp = cur.rightChild;
+            else if(root.right == null){
+                return root.left;
+            }
+            // two child
+            else{
+                // find successor
+                TreeNode succ = root.right;
 
-            while (temp != null) {
-                succParent = succ;
-                succ = temp;
-                temp = temp.leftChild;
+                while(succ != null){
+                    succ = succ.left;
+                }
+
+                root.data  = succ.data;
+
+                root.right = delete(key , succ);
             }
-            if (succ != cur.rightChild) {
-                succParent.leftChild = succ.rightChild;
-                succ.rightChild = cur.rightChild;
-            }
-            if (cur == root) {
-                root = succ;
-            } else if (parent.leftChild == cur) {
-                parent.leftChild = succ;
-            } else {
-                parent.rightChild = succ;
-            }
-            succ.leftChild = cur.leftChild;
 
 
         }
 
+        return root;
     }
 
     public int findMin() {
@@ -168,7 +134,7 @@ class TreeCustom {
 
         while (cur != null) {
             last = cur;
-            cur = cur.leftChild;
+            cur = cur.left;
         }
         return last.data;
     }
@@ -179,7 +145,7 @@ class TreeCustom {
 
         while (cur != null) {
             last = cur;
-            cur = cur.rightChild;
+            cur = cur.right;
         }
         return last.data;
     }
@@ -198,8 +164,8 @@ class TreeCustom {
                 TreeNode cur = queue.poll();
 
                 System.out.print(cur.data + " ");
-                if (cur.leftChild != null) queue.offer(cur.leftChild);
-                if (cur.rightChild != null) queue.offer(cur.rightChild);
+
+                if (cur.right != null) queue.offer(cur.right);
             }
             System.out.println();
         }
@@ -208,16 +174,16 @@ class TreeCustom {
     public int maxDepth(TreeNode root) {
         if (root == null) return 0;
 
-        return 1 + Math.max(maxDepth(root.leftChild), maxDepth(root.rightChild));
+        return 1 + Math.max(maxDepth(root.left), maxDepth(root.right));
     }
 
     public int minDepth(TreeNode root) {
         if (root == null) return 0;
-        if (root.leftChild == null && root.rightChild == null) return 1;
-        if (root.leftChild == null) return 1 + minDepth(root.rightChild);
-        if (root.rightChild == null) return 1 + minDepth(root.leftChild);
+        if (root.left == null && root.right == null) return 1;
+        if (root.left == null) return 1 + minDepth(root.right);
+        if (root.right == null) return 1 + minDepth(root.left);
 
-        return 1 + Math.min(minDepth(root.leftChild), minDepth(root.rightChild));
+        return 1 + Math.min(minDepth(root.left), minDepth(root.right));
 
     }
 
@@ -225,25 +191,14 @@ class TreeCustom {
         if (root == null) {
             return 0;
         }
-        return 1 + Math.max(heightOfTheTree(root.leftChild) , heightOfTheTree(root.rightChild));
+        return 1 + Math.max(heightOfTheTree(root.left) , heightOfTheTree(root.right));
     }
 }
 
 final class TestTheCustomTree {
     TestTheCustomTree() {
         TreeCustom tree = new TreeCustom();
-        tree.insert(25);
-        tree.insert(20);
-        tree.insert(36);
-        tree.insert(10);
-        tree.insert(22);
-        tree.insert(30);
-        tree.insert(40);
-        tree.insert(5);
-        tree.insert(12);
-        tree.insert(28);
-        tree.insert(38);
-        tree.insert(48);
+
 
 
         System.out.print("Infix Traversal: ");
@@ -260,11 +215,11 @@ final class TestTheCustomTree {
         String res = tree.find(5) == null ? "Not Found" : "Found Node: " + tree.find(5).data;
         System.out.println(res);
 
-        System.out.println("The min value in the tree :" + tree.findMin());
-        System.out.println("The max value in the tree :" + tree.findMax());
+        System.out.println("The min dataue in the tree :" + tree.findMin());
+        System.out.println("The max dataue in the tree :" + tree.findMax());
 
         System.out.println("Deleting elements : ");
-        tree.delete(48);
+
         tree.InfixTraversal(tree.root);
         System.out.println();
 

@@ -11,7 +11,7 @@ import java.util.ArrayList;
     }
 
     // swap for insert and delete the node
-    private void swap(int first , int second){
+    public void swap(int first , int second){
         T temp = list.get(first);
         list.set(first , list.get(second));
         list.set(second , temp);
