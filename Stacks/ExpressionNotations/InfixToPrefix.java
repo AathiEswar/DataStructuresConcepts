@@ -1,44 +1,42 @@
-package Concepts.Stacks;
-import java.util.*;
-public class InfixToPostFix {
+package Concepts.Stacks.ExpressionNotations;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Stack;
+
+public class InfixToPrefix {
     public static void main(String[] args) {
-        String result = infixToPostfix("");
-        System.out.println(result);
-        System.out.println(evaluatePostfixExpression(result));
-    }
+        String exp = "( 4 + 5 ) * ( 1 - 5 )";
 
-    // infix to postfix conversion
+        String[] expArr = reverseArray(exp.split(" "));
 
-    // functions - InToPost , precedenceChecker , precedenceValue , OperatorChecker
-    public static int evaluatePostfixExpression(String expression){
-        // create necessary ds
-        Stack<Integer> stack = new Stack<>();
+        for (int i = 0; i < expArr.length; i++) {
 
-        for(String chr : expression.split(" ")){
-            // if operator
-
-            if(isOperator(chr)){
-                int num1 = stack.pop();
-                int num2 = stack.pop();
-
-                switch (chr){
-                    case "+" -> stack.push(num1 + num2);
-                    case "-" -> stack.push(num1 - num2);
-                    case "*" -> stack.push(num1 * num2);
-                    case "/" -> stack.push(num2 / num1);
-                    case "%" -> stack.push(num2 % num1);
-                }
+            if (expArr[i].equals("(") ) {
+                expArr[i] = ")";
+                i++;
+            } else if (expArr[i].equals(")") ) {
+                expArr[i] = "(";
+                i++;
             }
-            // if number
-            else{
-                stack.push(Integer.parseInt(chr));
-            }
-
         }
 
-        return stack.pop();
+        String result = infixToPrefix(String.join(" " , expArr));
+        String[] resultArr = reverseArray(result.split(" "));
+
+        System.out.println(String.join(" " , resultArr));
+
     }
-    public static String infixToPostfix(String expression){
+    public static String[] reverseArray(String[] expression){
+        for(int i = 0 ; i < expression.length/2 ; i++){
+            String temp = expression[i];
+            expression[i] = expression[expression.length - 1 - i ];
+            expression[expression.length - 1 - i] = temp;
+        }
+        return expression;
+    }
+    public static String infixToPrefix(String expression){
         // create necessary ds
         ArrayList<String> postfixResult = new ArrayList<>();
 
@@ -51,11 +49,11 @@ public class InfixToPostFix {
                 stack.push("(");
             }
             else if(chr.equals(")")){
-               while(!stack.isEmpty() && stack.peek()!= "("){
-                   postfixResult.add(stack.pop());
+                while(!stack.isEmpty() && stack.peek()!= "("){
+                    postfixResult.add(stack.pop());
 
-               }
-                   stack.pop();
+                }
+                stack.pop();
             }
             // if operator need to perform some operations
             else if(isOperator(chr)){

@@ -1,8 +1,8 @@
-package Concepts.Stacks;
+package Concepts.Stacks.ExpressionNotations;
 
 import java.util.Stack;
 
-import static Concepts.Stacks.InfixToPostFix.isOperator;
+import static Concepts.Stacks.ExpressionNotations.InfixToPostFix.isOperator;
 
 public class PostfixToInfix {
     public static void main(String[] args) {

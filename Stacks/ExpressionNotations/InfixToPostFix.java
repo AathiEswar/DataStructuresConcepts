@@ -1,42 +1,20 @@
-package Concepts.Stacks;
+package Concepts.Stacks.ExpressionNotations;
+import java.util.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Stack;
+import static Concepts.Stacks.ExpressionNotations.InfixEvaluation.evaluatePostfixExpression;
 
-public class InfixToPrefix {
+public class InfixToPostFix {
     public static void main(String[] args) {
-        String exp = "( 4 + 5 ) * ( 1 - 5 )";
-
-        String[] expArr = reverseArray(exp.split(" "));
-
-        for (int i = 0; i < expArr.length; i++) {
-
-            if (expArr[i].equals("(") ) {
-                expArr[i] = ")";
-                i++;
-            } else if (expArr[i].equals(")") ) {
-                expArr[i] = "(";
-                i++;
-            }
-        }
-
-        String result = infixToPrefix(String.join(" " , expArr));
-        String[] resultArr = reverseArray(result.split(" "));
-
-        System.out.println(String.join(" " , resultArr));
-
+        String result = infixToPostfix("");
+        System.out.println(result);
+        System.out.println(evaluatePostfixExpression(result));
     }
-    public static String[] reverseArray(String[] expression){
-        for(int i = 0 ; i < expression.length/2 ; i++){
-            String temp = expression[i];
-            expression[i] = expression[expression.length - 1 - i ];
-            expression[expression.length - 1 - i] = temp;
-        }
-        return expression;
-    }
-    public static String infixToPrefix(String expression){
+
+    // infix to postfix conversion
+
+    // functions - InToPost , precedenceChecker , precedenceValue , OperatorChecker
+
+    public static String infixToPostfix(String expression){
         // create necessary ds
         ArrayList<String> postfixResult = new ArrayList<>();
 
@@ -49,11 +27,11 @@ public class InfixToPrefix {
                 stack.push("(");
             }
             else if(chr.equals(")")){
-                while(!stack.isEmpty() && stack.peek()!= "("){
-                    postfixResult.add(stack.pop());
+               while(!stack.isEmpty() && stack.peek()!= "("){
+                   postfixResult.add(stack.pop());
 
-                }
-                stack.pop();
+               }
+                   stack.pop();
             }
             // if operator need to perform some operations
             else if(isOperator(chr)){
