@@ -2,13 +2,42 @@ package Concepts.Stacks;
 import java.util.*;
 public class InfixToPostFix {
     public static void main(String[] args) {
-        System.out.println(infixToPostfix("4 * 5 + 6 / 7 / 8 / 9"));
+        String result = infixToPostfix("4 * 5 + 10 / 2");
+        System.out.println(result);
+        System.out.println(evaluatePostfixExpression(result));
     }
 
     // infix to postfix conversion
 
     // functions - InToPost , precedenceChecker , precedenceValue , OperatorChecker
+    public static int evaluatePostfixExpression(String expression){
+        // create necessary ds
+        Stack<Integer> stack = new Stack<>();
 
+        for(String chr : expression.split(" ")){
+            // if operator
+
+            if(isOperator(chr)){
+                int num1 = stack.pop();
+                int num2 = stack.pop();
+
+                switch (chr){
+                    case "+" -> stack.push(num1 + num2);
+                    case "-" -> stack.push(num1 - num2);
+                    case "*" -> stack.push(num1 * num2);
+                    case "/" -> stack.push(num2 / num1);
+                    case "%" -> stack.push(num2 % num1);
+                }
+            }
+            // if number
+            else{
+                stack.push(Integer.parseInt(chr));
+            }
+            System.out.println(stack.peek());
+        }
+
+        return stack.pop();
+    }
     public static String infixToPostfix(String expression){
         // create necessary ds
         ArrayList<String> postfixResult = new ArrayList<>();
