@@ -2,7 +2,7 @@ package Concepts.Stacks;
 import java.util.*;
 public class InfixToPostFix {
     public static void main(String[] args) {
-        String result = infixToPostfix("4 * ( 5 + 10 ) + 2");
+        String result = infixToPostfix("");
         System.out.println(result);
         System.out.println(evaluatePostfixExpression(result));
     }
@@ -55,9 +55,7 @@ public class InfixToPostFix {
                    postfixResult.add(stack.pop());
 
                }
-               if(!stack.isEmpty()){
                    stack.pop();
-               }
             }
             // if operator need to perform some operations
             else if(isOperator(chr)){

@@ -1,77 +1,81 @@
 package Concepts.Stacks;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
 
 public class InfixToPrefix {
     public static void main(String[] args) {
-        String result = infixToPrefix("4 * 5 + 10 / 2");
-        System.out.println(result);
-        System.out.println(evaluatePrefixExpression(result));
-    }
+        String exp = "( 4 + 5 ) * ( 1 - 5 )";
 
-    // infix to prefix conversion
+        String[] expArr = reverseArray(exp.split(" "));
 
-    // functions - InToPost , precedenceChecker , precedenceValue , OperatorChecker
-    public static int evaluatePrefixExpression(String expression){
-        // create necessary ds
-        Stack<Integer> stack = new Stack<>();
+        for (int i = 0; i < expArr.length; i++) {
 
-        for(String chr : expression.split(" ")){
-            // if operator
-
-            if(isOperator(chr)){
-                int num1 = stack.pop();
-                int num2 = stack.pop();
-
-                switch (chr){
-                    case "+" -> stack.push(num1 + num2);
-                    case "-" -> stack.push(num1 - num2);
-                    case "*" -> stack.push(num1 * num2);
-                    case "/" -> stack.push(num2 / num1);
-                    case "%" -> stack.push(num2 % num1);
-                }
+            if (expArr[i].equals("(") ) {
+                expArr[i] = ")";
+                i++;
+            } else if (expArr[i].equals(")") ) {
+                expArr[i] = "(";
+                i++;
             }
-            // if number
-            else{
-                stack.push(Integer.parseInt(chr));
-            }
-
         }
 
-        return stack.pop();
+        String result = infixToPrefix(String.join(" " , expArr));
+        String[] resultArr = reverseArray(result.split(" "));
+
+        System.out.println(String.join(" " , resultArr));
+
+    }
+    public static String[] reverseArray(String[] expression){
+        for(int i = 0 ; i < expression.length/2 ; i++){
+            String temp = expression[i];
+            expression[i] = expression[expression.length - 1 - i ];
+            expression[expression.length - 1 - i] = temp;
+        }
+        return expression;
     }
     public static String infixToPrefix(String expression){
         // create necessary ds
-        ArrayList<String> prefixResult = new ArrayList<>();
+        ArrayList<String> postfixResult = new ArrayList<>();
 
         // stack to do the operations
         Stack<String> stack = new Stack<>();
 
         // split and iterate through the text
         for(String chr : expression.split(" ")){
+            if(chr.equals("(")){
+                stack.push("(");
+            }
+            else if(chr.equals(")")){
+                while(!stack.isEmpty() && stack.peek()!= "("){
+                    postfixResult.add(stack.pop());
+
+                }
+                stack.pop();
+            }
             // if operator need to perform some operations
-            if(isOperator(chr)){
+            else if(isOperator(chr)){
                 // is the stack is not empty and the peek of stack has higher precedence then pop the peek
                 while(!stack.isEmpty() && hasLowerPrecedence(chr , stack.peek())){
-                    prefixResult.add(stack.pop());
+                    postfixResult.add(stack.pop());
                 }
                 // add the cur op to stack for further processing
                 stack.push(chr);
             }
             // if number then just add to the result list
             else{
-                prefixResult.add(chr);
+                postfixResult.add(chr);
             }
         }
         // the stack might not be empty yet so add everything to the result list
         while(!stack.isEmpty()){
-            prefixResult.add(stack.pop());
+            postfixResult.add(stack.pop());
         }
 
         // return the resultant list as a string
-        return String.join(" " , prefixResult);
+        return String.join(" " , postfixResult);
     }
 
     public static boolean isOperator(String character){
@@ -92,7 +96,7 @@ public class InfixToPrefix {
             case "+" , "-" -> 1;
             case "*" , "/" -> 2;
             case "%" -> 3;
-            default -> 4;
+            default -> -1 ;
         };
     }
 }
