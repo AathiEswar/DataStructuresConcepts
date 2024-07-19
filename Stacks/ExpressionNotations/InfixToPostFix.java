@@ -1,7 +1,7 @@
 package Concepts.Stacks.ExpressionNotations;
 import java.util.*;
 
-import static Concepts.Stacks.ExpressionNotations.InfixEvaluation.evaluatePostfixExpression;
+import static Concepts.Stacks.ExpressionNotations.PostfixEvaluation.evaluatePostfixExpression;
 
 public class InfixToPostFix {
     public static void main(String[] args) {
@@ -10,9 +10,6 @@ public class InfixToPostFix {
         System.out.println(evaluatePostfixExpression(result));
     }
 
-    // infix to postfix conversion
-
-    // functions - InToPost , precedenceChecker , precedenceValue , OperatorChecker
 
     public static String infixToPostfix(String expression){
         // create necessary ds

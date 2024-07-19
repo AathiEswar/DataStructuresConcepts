@@ -4,7 +4,7 @@ import java.util.Stack;
 
 import static Concepts.Stacks.ExpressionNotations.InfixToPostFix.isOperator;
 
-public class InfixEvaluation {
+public class PostfixEvaluation {
     public static int evaluatePostfixExpression(String expression){
         // create necessary ds
         Stack<Integer> stack = new Stack<>();

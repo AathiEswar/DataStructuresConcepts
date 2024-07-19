@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Queue;
 
 public class BFS {
-    public ArrayList<Integer> bfsGraphs(int V , List<List<Integer>> adjList){
+    public static ArrayList<Integer> bfsGraphs(int V , List<List<Integer>> adjList){
 
         // create the necessary ds for iterations and result
         boolean[] visited = new boolean[V];
@@ -22,7 +22,7 @@ public class BFS {
 
             // get the element from the queue
             Integer node = queue.poll();
-
+            System.out.println(node);
             // add the node in the resutl
             result.add(node);
 
