@@ -11,7 +11,7 @@ public class CountingSort {
         System.out.println(Arrays.toString(arr));
     }
 
-    public static void countingSortNegative(int[] nums){
+    public static int[] countingSortNegative(int[] nums){
         int max = nums[0];
         int min = nums[0];
 
