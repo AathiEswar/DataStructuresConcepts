@@ -1,6 +1,9 @@
 package Concepts.Graphs;
 import java.util.*;
 public class IsBipartiteGraphBFS {
+    // -1 = uncolored
+    //  0 = start color and so on
+    //  1 = next to start color and so on
     public boolean isBipartite(int[][] graph) {
         int nodeNumber = graph.length ;
         int[] color = new int[nodeNumber];
@@ -29,10 +32,12 @@ public class IsBipartiteGraphBFS {
             int node = queue.poll();
 
             for(int adjNode : graph[node]){
+                // when it is not colored , color it and add to queue
                 if(color[adjNode] == -1){
                     queue.offer(adjNode);
                     color[adjNode] = 1 - color[node];
                 }
+                // if its colored and same as its parent return false
                 else if(color[node] == color[adjNode]){
                     return false;
                 }

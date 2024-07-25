@@ -20,14 +20,20 @@ public class isBipartiteGraphDFS {
     }
 
     public boolean dfs(int[] color , int start , int[][] graph , int curColor ){
+
+        // color the cur node
         color[start] = curColor;
 
+        // iterate through their adjnodes
         for(int adjNode : graph[start]){
+            // when its no color , color it and send to DFS and check true or false
             if(color[adjNode] == -1){
                 if(!dfs(color , adjNode , graph , 1-curColor)){
                     return false;
                 }
             }
+
+            // if its same as parent color return false
             else if(color[adjNode] == color[start]){
                 return false;
             }
